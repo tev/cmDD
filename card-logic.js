@@ -11,6 +11,8 @@ dmDD.openPack = function() {
 	var f = document.getElementById("foil");
 	if (dmDD.packs == -1) {
 		f.parentNode.removeChild(f);
+		document.getElementById("step2").className = "done";
+		document.getElementById("step3").className = "inprogress";
 		
 		//d.className = "done";
 		dmDD.sorted = dmDD.cleanup(dmDD.opened);
@@ -42,6 +44,8 @@ dmDD.openPack = function() {
 
 		if (dmDD.packs == 0) {
 			f.innerHTML = '<button>Sort</button>';
+			document.getElementById("step1").className = "done";
+			document.getElementById("step2").className = "inprogress";
 		} else {
 			p.innerHTML = dmDD.packs;
 		}

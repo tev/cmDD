@@ -1,4 +1,7 @@
-body { font-family: Arial, Helvetica, sans-serif }
+body { 
+	font-family: Helvetica, Arial, Sans-Serif;
+	margin: 0; 
+}
 #left-col {
 	width: 260px;
 	float: left;
@@ -52,3 +55,26 @@ li.Common { color: gray; }
 li.Uncommon { color: green; }
 li.Rare { color: orange; }
 li.Super-Rare { color: red; }
+
+span.title {
+	display: block;
+	font-size: 32px;
+	font-weight: bold;
+	font-style: italic;
+	padding: 10px 30px;
+	float: right;
+}
+
+#green_and_orange_step_menu { margin:0; padding:5px; display:inline-table; list-style:none; }
+#green_and_orange_step_menu li{ display:inline; float:left; background:url(card-images/step_orange_green.gif) no-repeat -50px bottom; height:41px; line-height:41px; font-size:14spx; padding:0 30px 0 25px; position:relative; }
+#green_and_orange_step_menu li span{ margin:0px; z-index:2000; background:url(card-images/step_orange_green.gif) no-repeat left bottom; display:block; position:absolute; height:41px; line-height:41px; width:13px; top:0; left:-10px; padding:0;}
+#green_and_orange_step_menu li.inprogress { color:#FFF;background-position:-50px 0px} 
+#green_and_orange_step_menu li.inprogress span, #green_and_orange_step_menu li.lastinprogress span{background-position:left 0px }
+#green_and_orange_step_menu li.done {color:#FFF;background-position: -50px -41px}
+#green_and_orange_step_menu li.done span, #green_and_orange_step_menu li.ldone span {background-position:left -41px }
+#green_and_orange_step_menu li:first-child {color:#FFF;background-position: -20px 0px }
+#green_and_orange_step_menu li:first-child.done { background-position: -20px -41px  }
+#green_and_orange_step_menu li:last-child {background-position: right bottom }
+#green_and_orange_step_menu li:last-child.inprogress { color:#FFF;background-position: right 0}
+#green_and_orange_step_menu li:last-child.done { color:#FFF;background-position: right -41px}
+
