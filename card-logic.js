@@ -4,31 +4,13 @@ dmDD.opened = [];
 
 // opens a pack and updates the view
 dmDD.openPack = function() {
-	// get two random card ids
-	var card1 = dmDD.getCard();
-	var card2 = dmDD.getCard('common');
-	// prevent two of the same common in a pack
-	while (card1 == card2) {
-		card2 = dmDD.getCard('common');
-	}
-
-	// add to opened card list
-	dmDD.opened.unshift({ "name": dmDD.cardData[card2]['Card Name'], "rarity": dmDD.cardData[card2]['Rarity'], "id": card2 });
-	dmDD.opened.unshift({ "name": dmDD.cardData[card1]['Card Name'], "rarity": dmDD.cardData[card1]['Rarity'], "id": card1 });
-	// update the views
-	dmDD.renderList(dmDD.opened);
-	dmDD.renderCards(dmDD.opened);
-	dmDD.renderDice(dmDD.opened);
-
 	// decrement packs, remove if no packs left
 	dmDD.packs--;
 	p = document.getElementById("packs");
-	p.innerHTML = dmDD.packs;
-
-	if (dmDD.packs == 0) {
-		var f = document.getElementById("foil");
+	
+	var f = document.getElementById("foil");
+	if (dmDD.packs == -1) {
 		f.parentNode.removeChild(f);
-		p.parentNode.removeChild(p);
 		
 		//d.className = "done";
 		dmDD.sorted = dmDD.cleanup(dmDD.opened);
@@ -40,6 +22,29 @@ dmDD.openPack = function() {
 		dmDD.renderList(dmDD.sorted);
 		dmDD.renderCards(dmDD.sorted);
 		dmDD.renderDice(dmDD.opened);
+	} else {
+
+		// get two random card ids
+		var card1 = dmDD.getCard();
+		var card2 = dmDD.getCard('common');
+		// prevent two of the same common in a pack
+		while (card1 == card2) {
+			card2 = dmDD.getCard('common');
+		}
+
+		// add to opened card list
+		dmDD.opened.unshift({ "name": dmDD.cardData[card2]['Card Name'], "rarity": dmDD.cardData[card2]['Rarity'], "id": card2 });
+		dmDD.opened.unshift({ "name": dmDD.cardData[card1]['Card Name'], "rarity": dmDD.cardData[card1]['Rarity'], "id": card1 });
+		// update the views
+		dmDD.renderList(dmDD.opened);
+		dmDD.renderCards(dmDD.opened);
+		dmDD.renderDice(dmDD.opened);
+
+		if (dmDD.packs == 0) {
+			f.innerHTML = '<button>Sort</button>';
+		} else {
+			p.innerHTML = dmDD.packs;
+		}
 	}
 };
 
