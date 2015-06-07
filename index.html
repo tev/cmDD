@@ -6,10 +6,13 @@
 	<link type="text/css" href="card-styles.css" rel="stylesheet">
 </head>
 <body>
-	<img id="foil" src="card-images/pack.png" onclick="javascript:dmDD.openPack();" />
-	<h1 id="packs">12</h1>
-	<div>Open 12 packs,<br />choose 8 cards<br />and 20 dice to use</div>
-	<ul id="list"></ul>
+	<div id="left-col">
+		<img id="foil" src="card-images/pack.png" onclick="javascript:dmDD.openPack();" />
+		<h1 id="packs">12</h1>
+		<div>Open 12 packs,<br />choose 8 cards<br />and 20 dice to use</div>
+		<div id="dice"></div>
+		<ul id="list"></ul>
+	</div>
 	<div id="cards"></div>
 	<script type="text/javascript">
 		// app namespace

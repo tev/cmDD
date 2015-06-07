@@ -1,17 +1,21 @@
 body { font-family: Arial, Helvetica, sans-serif }
+#left-col {
+	width: 260px;
+	float: left;
+	padding: 10px;
+}
 #foil { height: 250px; cursor: pointer; }
 #cards img { height: 500px; }
-/*
-#cards img:nth-child(-n+2) { height: 500px; }
-#cards.done img { height: 250px; }
-*/
-#cards { 
-	position: absolute;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	left: 300px;
-	overflow: scroll;
+/* #cards.done img { height: 250px; } */
+#dice { width: 240px; }
+#dice img {
+	border-radius: 5px;
+	margin: 1px;
+}
+#cards {
+	width: 720px; 
+	float: left;
+	padding: 10px;
 }
 li.Common { color: gray; }
 li.Uncommon { color: green; }

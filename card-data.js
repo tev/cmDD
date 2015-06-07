@@ -4,7 +4,50 @@ dmDD.rarityList = {
     "rare": ["97", "98", "99", "100", "101", "102", "103", "104", "105", "106", "107", "123", "121", "122", "108", "109", "110", "111", "112", "113", "124", "114", "115", "116", "117", "118", "119", "120"],
     "uncommon": ["65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "95", "93", "94", "76", "77", "78", "79", "80", "81", "82", "96", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92"],
     "common": ["28", "29", "30", "31", "32", "33", "34", "35", "36", "38", "37", "39", "40", "41", "63", "61", "62", "42", "43", "44", "45", "46", "47", "48", "64", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"]
-}
+};
+
+dmDD.diceMap = {
+    "Beholder": "25",
+    "Blue Dragon": "26",
+    "Carrion Crawler": "27",
+    "Copper Dragon": "28",
+    "Dracolich": "29",
+    "Drow Assassin": "30",
+    "Dwarf Cleric": "31",
+    "Elf Wizard": "32",
+    "Frost Giant": "33",
+    "Gelatinous Cube": "34",
+    "Green Dragon": "35",
+    "Half-Dragon": "36",
+    "Halfling Thief": "37",
+    "Half-Orc Fighter": "38",
+    "Human Paladin": "39",
+    "Invisible Stalker": "40",
+    "Kobold": "41",
+    "Manticore": "42",
+    "Mind Flayer": "43",
+    "Minotaur": "44",
+    "Mummy": "45",
+    "Orc": "46",
+    "Owlbear": "47",
+    "Pit Fiend": "48",
+    "Purple Worm": "49",
+    "Red Dragon": "50",
+    "Skeleton": "51",
+    "Stirge": "52",
+    "Tarrasque": "53",
+    "Treant": "54",
+    "Troll": "55",
+    "Umber Hulk": "56",
+    "Unicorn": "57",
+    "Vampire": "58",
+    "Wererat": "59",
+    "Zombie": "60",
+    "Magic Helmet": "61",
+    "Magic Sword": "62",
+    "Limited Wish": "63",
+    "Prismatic Spray": "64"
+};
 
 // all card data
 dmDD.cardData = {
@@ -2216,4 +2259,4 @@ dmDD.cardData = {
     "** Ability":"",
     "Global Ability":""
   }
-}
+};
