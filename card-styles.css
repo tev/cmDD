@@ -1,7 +1,7 @@
 body { 
 	font-family: Helvetica, Arial, Sans-Serif;
 	margin: 0; 
-	background-image: url(card-images/felt.png); background-color: rgb(7, 146, 18);
+	background: white;
 }
 #left-col {
 	width: 260px;
