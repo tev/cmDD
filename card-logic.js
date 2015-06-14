@@ -9,50 +9,41 @@ dmDD.openPack = function() {
 	p = document.getElementById("packs");
 	
 	var f = document.getElementById("foil");
-	if (dmDD.packs == -1) {
-		f.parentNode.removeChild(f);
-		document.getElementById("step2").className = "done";
-		document.getElementById("step3").className = "inprogress";
-		
-		//d.className = "done";
-		dmDD.sorted = dmDD.cleanup(dmDD.opened);
 
-		dmDD.opened.sort(function(a, b){
-			return a.name == b.name ? 0 : +(a.name > b.name) || -1;
-		});
-		
-		dmDD.renderList(dmDD.sorted);
-		dmDD.renderCards(dmDD.sorted);
-		dmDD.renderDice(dmDD.opened);
-	} else {
-
-		// get two random card ids
-		var card1 = dmDD.getCard();
-		var card2 = dmDD.getCard('common');
-		// prevent two of the same common in a pack
-		while (card1 == card2) {
-			card2 = dmDD.getCard('common');
-		}
-
-		// add to opened card list
-		dmDD.opened.unshift({ "name": dmDD.cardData[card2]['Card Name'], "rarity": dmDD.cardData[card2]['Rarity'], "id": card2 });
-		dmDD.opened.unshift({ "name": dmDD.cardData[card1]['Card Name'], "rarity": dmDD.cardData[card1]['Rarity'], "id": card1 });
-		// update the views
-		dmDD.renderList(dmDD.opened);
-		dmDD.renderCards(dmDD.opened);
-		dmDD.renderDice(dmDD.opened);
-
-		if (dmDD.packs == 0) {
-			f.innerHTML = '<button>Sort</button>';
-			document.getElementById("step1").className = "done";
-			document.getElementById("step2").className = "inprogress";
-		} else {
-			p.innerHTML = dmDD.packs;
-		}
+	// get two random card ids
+	var card1 = dmDD.getCard();
+	var card2 = dmDD.getCard('common');
+	// prevent two of the same common in a pack
+	while (card1 == card2) {
+		card2 = dmDD.getCard('common');
 	}
+
+	// add to opened card list
+	dmDD.opened.unshift({ "name": dmDD.cardData[card2]['Card Name'], "rarity": dmDD.cardData[card2]['Rarity'], "id": card2 });
+	dmDD.opened.unshift({ "name": dmDD.cardData[card1]['Card Name'], "rarity": dmDD.cardData[card1]['Rarity'], "id": card1 });
+	// update the views
+	dmDD.renderList(dmDD.opened);
+	dmDD.renderCards(dmDD.opened);
+	dmDD.renderDice(dmDD.opened);
+
+	if (dmDD.packs == 0) {
+		f.innerHTML = '<button onclick="javascript:dmDD.cleanup(dmDD.opened);">Sort</button>';
+		document.getElementById("step1").className = "done";
+		document.getElementById("step2").className = "inprogress";
+	} else {
+		p.innerHTML = dmDD.packs;
+	}
+	
 };
 
 dmDD.cleanup = function(cardList) {
+	var f = document.getElementById("foil");
+	f.parentNode.removeChild(f);
+
+	document.getElementById("step2").className = "done";
+	document.getElementById("step3").className = "inprogress";
+	document.getElementById("cards").className = "done";
+	
 	cardList.sort(function(a, b){
 		return a.name == b.name ? 0 : +(a.name > b.name) || -1;
 	});
@@ -65,6 +56,18 @@ dmDD.cleanup = function(cardList) {
 		cardList.push(arr[key]);	
 	}
 
+	dmDD.opened.sort(function(a, b){
+		return a.name == b.name ? 0 : +(a.name > b.name) || -1;
+	});
+	
+	dmDD.renderList(cardList);
+	dmDD.renderCards(cardList);
+	dmDD.renderDice(dmDD.opened);
+
+	$('div.image.clickable').on('click', function() {
+		$(this).toggleClass('selected');
+	});
+
 	return cardList;
 };
 
@@ -73,7 +76,8 @@ dmDD.renderCards = function(cardList) {
 	var d = document.getElementById("cards");
 	var renderedCards = '';
 	for (i=0; i<cardList.length; i++) {
-		renderedCards += '<img src="card-images/' + cardList[i].id + '.jpg" />';
+		renderedCards += '<div class="image clickable" style="background-image: url(card-images/' + cardList[i].id + '.jpg)"></div>';
+
 	}
 	d.innerHTML = renderedCards;
 };
