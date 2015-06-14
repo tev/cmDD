@@ -27,9 +27,9 @@ dmDD.openPack = function() {
 	dmDD.renderDice(dmDD.opened);
 
 	if (dmDD.packs == 0) {
-		f.innerHTML = '<button onclick="javascript:dmDD.cleanup(dmDD.opened);">Sort</button>';
-		document.getElementById("step1").className = "done";
-		document.getElementById("step2").className = "inprogress";
+		f.innerHTML = '<button class="icon button" onclick="javascript:dmDD.cleanup(dmDD.opened);"><i id="packs" class="arrow icon"></i>Sort Cards</button>';
+		document.getElementById("step1").className = "completed";
+		document.getElementById("step2").className = "current";
 	} else {
 		p.innerHTML = dmDD.packs;
 	}
@@ -38,11 +38,12 @@ dmDD.openPack = function() {
 
 dmDD.cleanup = function(cardList) {
 	var f = document.getElementById("foil");
-	f.parentNode.removeChild(f);
-
-	document.getElementById("step2").className = "done";
-	document.getElementById("step3").className = "inprogress";
+	f.innerHTML = '<button class="icon button" onclick="javascript:dmDD.choose(dmDD.opened);"><i id="packs" class="arrow icon"></i>Choose Cards</button>';
+		
+	document.getElementById("step2").className = "completed";
+	document.getElementById("step3").className = "current";
 	document.getElementById("cards").className = "done";
+	document.getElementById("dice").className = "dice-pool dim";
 	
 	cardList.sort(function(a, b){
 		return a.name == b.name ? 0 : +(a.name > b.name) || -1;
@@ -64,11 +65,58 @@ dmDD.cleanup = function(cardList) {
 	dmDD.renderCards(cardList);
 	dmDD.renderDice(dmDD.opened);
 
-	$('div.image.clickable').on('click', function() {
-		$(this).toggleClass('selected');
+	dmDD.selectedCards = [];
+
+	$('.card').on('click', function() {
+		dmDD.select($(this));
 	});
 
 	return cardList;
+};
+
+dmDD.select = function(card) {
+	if (card.hasClass('selected')) {
+		card.removeClass('selected');
+		// if no cards of a type are selected, dim the dice
+		if ($( "div.selected[data-name='" + card.data('name') + "']" ).length == 0) {
+			$( "img[data-name='" + card.data('name') + "']" ).removeClass('selected');	
+		}
+	} else {
+		if (($('.card.selected').length) < 8 || ($( "div.selected[data-name='" + card.data('name') + "']" ).length > 0)) {
+			$( "div[data-name='" + card.data('name') + "']" ).removeClass('selected');
+			card.addClass('selected');
+			// undim selected dice
+			$( "img[data-name='" + card.data('name') + "']" ).addClass('selected');
+		}
+	}
+	//$('#dice img').removeClass('selected');
+
+};
+
+dmDD.choose = function() {
+
+	if ($('.card.selected').length < 8) {
+		window.alert('Select 8 cards to use');
+	} else {
+		$('div.card:not(.selected)').remove();
+		$('img:not(.selected)').remove();
+
+		$('#dice').removeClass('dim');
+		$('div.card, #dice img').removeClass('selected');
+
+		document.getElementById("step3").className = "completed";
+		document.getElementById("step4").className = "current";
+
+		$('#list').remove();
+
+		var f = document.getElementById("foil");
+		f.innerHTML = '<button class="icon button" onclick="javascript:dmDD.pickDice();"><i id="packs" class="arrow icon"></i>Assign Dice</button>';
+		
+	}
+};
+
+dmDD.pickDice = function() {
+	window.alert("coming soon");
 };
 
 // renders the card view
@@ -76,8 +124,7 @@ dmDD.renderCards = function(cardList) {
 	var d = document.getElementById("cards");
 	var renderedCards = '';
 	for (i=0; i<cardList.length; i++) {
-		renderedCards += '<div class="image clickable" style="background-image: url(card-images/' + cardList[i].id + '.jpg)"></div>';
-
+		renderedCards += '<div class="card" data-name="' + cardList[i].name + '" data-number="' + cardList[i].id + '" style="background-image: url(img/' + cardList[i].id + '.jpg)"></div>';
 	}
 	d.innerHTML = renderedCards;
 };
@@ -87,7 +134,7 @@ dmDD.renderDice = function(cardList) {
 	var d = document.getElementById("dice");
 	var renderedDice = '';
 	for (i=0; i<cardList.length; i++) {
-		renderedDice += '<img src="card-images/dice-sm-' + dmDD.diceMap[cardList[i].name] + '.jpg" />';
+		renderedDice += '<img data-name="' + cardList[i].name + '" src="img/dice-sm-' + dmDD.diceMap[cardList[i].name] + '.jpg" />';
 	}
 	d.innerHTML = renderedDice;
 };
